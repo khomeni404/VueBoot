@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue Js Bangla Tutorial</title>
+
+</head>
+<body>
+
+<div id="root">
+    <h3>
+        {{ name|upper}} <br>
+        {{ designation | lower  }}
+    </h3>
+
+</div>
+
+
+<script type="text/javascript" src="../resources/js-n-css/vue.js"></script>
+<script type="text/javascript">
+
+
+    var app = new Vue({
+        el: "#root",
+        data: {
+            name: "Muhammad Ayatullah Khomeni",
+            designation: "Software Developer"
+        },
+
+        // Local Filter
+        filters: {
+            upper(text){
+                return text.toUpperCase();
+            }
+        }
+    });
+
+    Vue.filter("lower", function (text) {
+        return text.toLowerCase();
+    });
+
+</script>
+
+</body>
+</html>

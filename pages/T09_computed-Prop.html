@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue Js Bangla Tutorial</title>
+
+</head>
+<body>
+
+<div id="root">
+    <h4>All Payments</h4>
+    <hr>
+    <ul>
+        <li v-for="(p, i) in payments">
+            <p>
+                {{p.name}} -> {{p.amount}} || {{p.paid}}
+            </p>
+        </li>
+    </ul>
+
+    <strong>
+        Total Amount: {{ totalAmount[0] }} <br>
+        Paid Amount: {{ totalAmount[1] }} <br>
+
+    </strong>
+
+    <h4>Unpaid Payments</h4>
+    <hr>
+    <ul>
+        <li v-for="(p, i) in unPaidPaymentList">
+            <p>
+                {{p.name}} -> {{p.amount}} || {{p.paid}}
+            </p>
+        </li>
+    </ul>
+
+</div>
+
+
+<script type="text/javascript" src="../resources/js-n-css/vue.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#root",
+        data: {
+            payments: [
+                {name: "houseRent", amount: 15000, paid: false},
+                {name: "gas", amount: 700, paid: true},
+                {name: "electricity", amount: 1000, paid: false},
+                {name: "water", amount: 800, paid: true},
+                {name: "net", amount: 1200, paid: false}
+            ]
+        },
+
+        computed: {
+            unPaidPaymentList(){
+                return this.payments.filter(function (p) {
+                    return !p.paid;
+                });
+            },
+
+
+            totalAmount(){
+                var total = 0;
+                var paid = 0;
+                for (var i = 0; i < this.payments.length; i++) {
+                    total += this.payments[i].amount;
+                    paid +=  this.payments[i].paid ? this.payments[i].amount : 0;
+                }
+                return [total, paid];
+            }
+        }
+    });
+
+</script>
+
+</body>
+</html>

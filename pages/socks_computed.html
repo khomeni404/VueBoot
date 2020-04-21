@@ -1,0 +1,114 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../resources/js-n-css/bootstrap.min.css">
+    <style>
+        .color-box {
+            width: 50px;
+            height: 30px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div id="panel_1">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-6" style="padding-top: 50px">
+            <div :class="className">
+                <div class="panel-heading">
+                    <b> Where are U ?</b> <a class="pull-right" v-on:click="cart += 1" href="#">X</a>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-4">
+                        <img :src="image" alt="" height="250" width="200">
+                        <div
+                                class="color-box col-md-1"
+                                v-for="(variant, i) in variants"
+                                :style="{backgroundColor: variant.name}"
+                                @click="selectedVariant = i"
+                        >&nbsp;</div>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>{{productName}}
+                            <small v-if="stock > 5">Available {{stock}}</small>
+                            <small v-else-if="stock > 0 && stock <=5">Almost out of Stock</small>
+                            <small v-else="">Out of Stock</small>
+                        </h3>
+                        <ul v-for="desc in descriptions">
+                            <li>{{desc}}</li>
+                        </ul>
+
+                        <span class="pull-right">Cart ({{cart}})</span>
+                        <br>
+
+
+                    </div>
+
+                    <br>
+                    <button class="btn btn-info btn-sm" @click="cartCount()" :disabled="!inStock">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" src="../resources/js-n-css/jquery.2.1.1.min.js"></script>
+<script type="text/javascript" src="../resources/js-n-css/bootstrap.min.js"></script>
+<script type="text/javascript" src="../resources/js-n-css/vue.js"></script>
+
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#panel_1"
+        , data: {
+            className: "panel panel-success"
+            , productName: 'Socks'
+            // , stock: 10
+            , cart: 0
+            , inStock: true
+            // , image: '../resources/images/socks_green.png'
+            , selectedVariant: 0
+            , descriptions: ['80% Cotton', '10% Silk', '10% Other materials']
+            , variants: [
+                {
+                    name: 'Green'
+                    , itemCode: 54545
+                    , style: 'padding: 2px 5px; margin: 5px'
+                    , stock: 15
+                    , image: '../resources/images/socks_green.png'
+                },
+                {
+                    name: 'Black'
+                    , itemCode: 20567
+                    , style: 'padding: 2px 5px'
+                    , bgColor: ''
+                    , stock: 0
+                    , image: '../resources/images/socks_black.png'
+                }
+            ]
+        }
+        , methods: {
+            cartCount(){
+                this.cart = this.cart + 1;
+                this.variants[this.selectedVariant].stock -= 1;
+            }
+            , changeImage(imgIndex){
+                this.selectedVariant = imgIndex;
+            }
+        }
+        , computed: {
+            stock(){
+                var ss = this.variants[this.selectedVariant].stock;
+                this.inStock = ss > 0;
+                return ss;
+            }
+            , image (){
+                return this.variants[this.selectedVariant].image; // '../resources/images/socks_green.png';
+            }
+        }
+    })
+</script>
+
+</html>

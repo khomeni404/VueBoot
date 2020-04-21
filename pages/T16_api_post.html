@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue Js Bangla Tutorial</title>
+    <link rel="stylesheet" href="../resources/js-n-css/bootstrap.min.css">
+</head>
+<body>
+
+<div id="root">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            Customer
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <form action="/action_page.php">
+                        <div class="form-group">
+                            <label>Customer Name:</label>
+                            <input type="text" v-model="name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Customer Age:</label>
+                            <input type="text" v-model="age" class="form-control">
+                        </div>
+                        <div class="checkbox">
+                            <label><input v-model="active" type="checkbox"> Active Customer</label>
+                        </div>
+                        <button type="button" @click="saveCustomer()" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>id</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Active</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(customer, i) in customerList">
+                            <td>{{ i+1 }}</td>
+                            <td>{{ customer.id }}</td>
+                            <td>{{ customer.name }}</td>
+                            <td>{{ customer.age }}</td>
+                            <td>{{ customer.active }}</td>
+                            <td style="background-color: yellow; cursor: pointer; text-align: center"
+                                title="Delete Customer" @click="deleteCustomer($event, customer.id)"><b>X</b></td>
+                            <td style="background-color: green; cursor: pointer; text-align: center"
+                                title="View Customer" @click="showCustomerDetails(customer.id)"><b>View</b></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--Information-->
+                <div class="col-md-4">
+                    <div class="well well-sm">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4">
+                                <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive"/>
+                            </div>
+                            <div class="col-sm-6 col-md-8">
+                                <h4>{{customer.name}}</h4>
+
+                                <p>
+                                    <i class="glyphicon glyphicon-envelope"></i> <b>ID : </b> {{customer.id}} <br/>
+                                    <i class="glyphicon glyphicon-envelope"></i><b>Active : </b>
+                                    {{customer.active}}<br/>
+
+                                    <i class="glyphicon glyphicon-envelope"></i><b>Age : </b>{{customer.age}}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="../resources/js-n-css/jquery.2.1.1.min.js"></script>
+<script type="text/javascript" src="../resources/js-n-css/bootstrap.min.js"></script>
+<script type="text/javascript" src="../resources/js-n-css/vue.js"></script>
+<script type="text/javascript" src="../resources/js-n-css/vue-router.js"></script>
+<script type="text/javascript" src="../resources/js-n-css/axios.js"></script>
+<script type="text/javascript" src="../resources/js-n-css/main.js"></script>
+<script type="text/javascript">
+
+    var app = new Vue({
+        el: "#root",
+        data: {
+            name: "Khomeni Muhammad Ayatullah",
+            age: "18",
+            active: true,
+            customerList: [],
+            customer: {}
+        },
+        methods: {
+            saveCustomer(){
+                var thisApp = this;
+                axios({
+                    method: 'post'
+                    , url: baseUrl+'/api/customer'
+                    , data: {
+                        name: thisApp.name
+                        , age: thisApp.age
+                        , active: thisApp.active
+                    }
+                }).then(function (response) {
+                    thisApp.customerList.push(response.data);
+                }).catch(function (response) {
+                    console.log(response);
+                    alert(response.status);
+                });
+            },
+
+            getCustomers(){
+                axios.get(baseUrl+'/api/customers').then(function (res) {
+                    app.customerList = res.data;
+                }).catch(function (response) {
+                    console.log(response);
+                    alert(response.status);
+                });
+            },
+
+            deleteCustomer(event, id){
+                axios({
+                    method: 'delete'
+                    , url: baseUrl+'/api/customer/' + id
+                }).then(function (response) {
+                    alert(response.data);
+                    if (response.status == 200) {
+                        $(event.target).closest("tr").hide();
+                    }
+                }).catch(function (response) {
+                    alert(response);
+                });
+            },
+
+            showCustomerDetails(id){
+                axios.get(baseUrl+'/api/customer/info/' + id).then(function (res) {
+                    app.customer = res.data;
+                });
+            }
+
+        },
+        beforeMount(){
+            this.getCustomers()
+        }
+    });
+
+
+</script>
+
+</body>
+</html>

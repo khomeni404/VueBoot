@@ -1,0 +1,44 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../resources/js-n-css/bootstrap.min.css">
+</head>
+
+<body>
+<div id="root" class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4" style="padding-top: 50px">
+        <div class="container">
+            <h3>Tabs</h3>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+                <li><a href="#">Menu 3</a></li>
+            </ul>
+            <br>
+            <p><strong>Note:</strong> This example shows how to create a basic navigation tab. It is not toggleable/dynamic yet (you can't click on the links to display different content)- see the last example in the Bootstrap Tabs and Pills Tutorial to find out how this can be done.</p>
+        </div>
+    </div>
+    <div class="col-md-2" style="padding-top: 50px">
+        <panel title="This Panel Title" content="Panel Content">
+
+        </panel>
+
+    </div>
+</div>
+</body>
+
+
+<script type="text/javascript" src="../resources/js-n-css/vue.js"></script>
+<script type="text/javascript" src="../resources/js-n-css/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+
+    var app = new Vue({
+        el: "#root",
+        data: {}
+    });
+
+</script>
+
+</html>

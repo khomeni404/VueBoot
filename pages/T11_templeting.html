@@ -1,0 +1,101 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../resources/js-n-css/bootstrap.min.css">
+</head>
+
+<body>
+<div id="root" class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4" style="padding-top: 50px">
+        <panel2 title="Hello" content="This is content" age="45">
+            <template slot="slot1">
+                <form action="/action_page.php"  >
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" class="form-control" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" id="pwd">
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox"> Remember me</label>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+
+            </template>
+
+            <template slot="slot_2">
+                this is slot 2
+            </template>
+        </panel2>
+    </div>
+    <div class="col-md-2" style="padding-top: 50px">
+        <panel title="This Panel Title" content="Panel Content">
+
+        </panel>
+
+    </div>
+</div>
+</body>
+
+
+<script type="text/javascript" src="../resources/js-n-css/vue.js"></script>
+<script type="text/javascript" src="../resources/js-n-css/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    Vue.component("panel2", {
+        template: `
+			<div class="panel panel-success" v-show="show">
+                <div class="panel-heading">
+                    {{title}}  <span class="pull-right" style="cursor: pointer; font-weight: bolder" @click="show = false">X</span>
+                </div>
+                <div class="panel-body">
+                    <slot name="slot1"></slot>
+                </div>
+                <div class="panel-body" style="border-top: 2px solid black">
+
+                    <slot name="slot_2"></slot>
+                </div>
+			</div>
+		`
+        , props: ['title', 'age']
+        , data : function() {
+            return {show: true}
+        }
+    });
+
+
+    Vue.component("panel", {
+        template: `
+			<div class="panel panel-info" v-show="show">
+				<div class="panel-heading">
+					{{title}}
+					<div class="close" @click="show = false">x</div>
+				</div>
+				<div class="panel-body">
+					<p>
+						<slot></slot>
+					</p>
+				</div>
+			</div>
+		`,
+        props: ['title', 'content'],
+
+        data: function () {
+            return {
+                show: true
+            }
+        }
+    });
+
+
+    var app = new Vue({
+        el: "#root",
+        data: {}
+    });
+
+</script>
+
+</html>

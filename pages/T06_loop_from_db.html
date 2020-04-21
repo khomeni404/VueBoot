@@ -1,0 +1,55 @@
+<html>
+<head>
+
+</head>
+
+<body>
+<div id="panel_1">
+    <ul>
+        <li v-for="(tech, i) in technologies">
+           {{ i+1 }}. {{ tech.name }} -  {{ tech.experience }}
+        </li>
+    </ul>
+
+    <hr> Over 3 Year Experience : Way 1 <br>
+    <ul>
+        <li v-for="(tech, i) in technologies">
+           <span v-if="tech.experience > 3">{{ i+1 }}. {{ tech.name }} -  {{ tech.experience }}</span>
+        </li>
+    </ul>
+
+    <hr> Over 3 Year Experience : 2nd way (v-if="tech.experience > 3")<br>
+    <ul>
+        <li v-for="(tech, i) in technologies" v-if="tech.experience > 3">
+           {{ i+1 }}. {{ tech.name }} -  {{ tech.experience }}
+        </li>
+    </ul>
+
+    <hr> Over 3 Year Experience : 3rd way  (v-show="tech.experience > 3")<br>
+    <ul>
+        <li v-for="(tech, i) in technologies" v-show="tech.experience > 3">
+           {{ i+1 }}. {{ tech.name }} -  {{ tech.experience }}
+        </li>
+    </ul>
+</div>
+</body>
+
+
+<script type="text/javascript" src="../resources/js-n-css/vue.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#panel_1",
+        data:{
+            technologies: [
+                {name: "Java", experience: 5},
+                {name: "HTML", experience: 3},
+                {name: "CSS", experience: 4},
+                {name: "Oracle", experience: 5},
+                {name: "Python", experience: 2},
+                {name: "Vue.js", experience: 6}
+            ]
+        }
+    })
+</script>
+
+</html>

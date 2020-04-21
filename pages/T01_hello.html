@@ -1,0 +1,25 @@
+<html>
+<head>
+
+</head>
+
+<body>
+<div id="panel_1">
+    Name: <input type="text" v-model="name">
+    <br>
+    {{ name }}
+</div>
+</body>
+
+
+<script type="text/javascript" src="../resources/js-n-css/vue.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#panel_1",
+        data:{
+            name: "Alhamdu lillah"
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,42 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../resources/js-n-css/bootstrap.min.css">
+
+</head>
+
+<body>
+<div id="panel_1">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+            <div :class="className">
+                <div class="panel-heading">
+                    Where are U ? <a class="pull-right" v-on:click="number += 1" href="#">Add</a>
+                </div>
+                <div class="panel-body">
+                    We are Here {{number}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+<script type="text/javascript" src="../resources/js-n-css/vue.js"></script>
+<script type="text/javascript" src="../resources/js-n-css/bootstrap.min.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#panel_1"
+        , data:{
+            className: "panel panel-success"
+            , number : 0
+        }
+
+        /*, data : function() {
+            return {show: true}
+        }*/
+    })
+</script>
+
+</html>

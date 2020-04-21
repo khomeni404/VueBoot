@@ -1,0 +1,45 @@
+<html>
+<head>
+
+</head>
+
+<body>
+<div id="panel_1">
+    <ul>
+        <li v-for="(skill, i) in skills">{{ skill }} <a href="#" @click="removeSkill(i)">&nbsp;&nbsp;X&nbsp;&nbsp;</a></li>
+    </ul>
+    <br>
+    <input type="text" v-model="newSkill">
+    <button @click="addSkills()">Add</button>
+    <!--
+    Base Function Call
+    <button v-on:click="addSkills()">Add</button>
+
+    -->
+
+</div>
+</body>
+
+
+<script type="text/javascript" src="../resources/js-n-css/vue.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#panel_1",
+        data: {
+            newSkill: 'Vue.js',
+            skills: ["Java", "HTML"]
+        },
+        methods: {
+            addSkills() {
+                this.skills.push(this.newSkill);
+                this.newSkill = '';
+            },
+
+            removeSkill(i){
+                this.skills.splice(i, 1);
+            }
+        }
+    })
+</script>
+
+</html>
